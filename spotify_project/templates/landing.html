@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Spotify Song Suggestor</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+        <style type="text/css">
+        html {
+            text-align: center;
+            color:white;
+        }
+        body {
+            background-image: url(static/background.jpg);
+            background-color: #cccccc;
+            background-size: cover;
+            background-position: center;
+            font-family: Comic Sans MS, Comic Sans, cursive;
+        }
+        ul {
+            margin-left: -40px;
+            list-style: none;
+        }
+        div {
+            background: rgba(150, 150, 150, .3);
+        }
+        </style>
+    </head>
+    <body>
+        <div>
+        <h1>Spotify Song Suggestor</h1>
+
+        <form action="/", method="POST">
+            <h3>Spotify Song Link:</h3>
+            <input type="text" name="link">
+            <input type="submit" value="Submit">
+        </form>
+        <p>{{ message }}</p>
+
+        {% if song %}
+        <h3><a href="{{song['url']}}">{{song['name']}}</a></h3>
+        <img src="{{song['imageurl']}}" alt="album thumbnail">
+        <p>{{song['album']}} by {{song['artist']}}, {{song['release']}}</p>
+        {% endif %}
+
+        {% for attribute in attr %}
+        <p>{{attribute}}</p>
+        {% endfor %}
+
+        <h2>Results</h2>
+        <ul>
+        {% for entry in links %}
+            <li><a href="{{entry[2]}}">{{entry[1]}}</a> by {{entry[0]}}</li>
+        {% endfor %}
+        </ul>
+        </div>
+        
+    </body>
+</html>
